@@ -1,0 +1,65 @@
+//Author: [Rama Alkhatib]
+//Course: CPT 187
+//Purpose:[The purpose of this class is to write the files and set found and not found files.]
+//STARTDATE:[4/13/2020]
+
+package edu.cpt187.alkhatib.participation;
+
+import java.io.PrintWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class OrderWriter 
+{
+	//declare and initialize class CONSTANTs
+	private boolean FOUND=true;
+	private boolean NOT_FOUND=false;
+
+	//declare/initialize all non-CONSTANT class attributes
+	private boolean fileFoundFlag;
+	private String masterFileName="";
+	private int recordCount=0;
+
+	//the OrderWriter class constructor
+	public OrderWriter(String borrowedFileName)
+	{
+		masterFileName = borrowedFileName;
+	}//end of OrderWriter Constructor
+
+	//set method
+	//this method will ASSIGN a new value to ***
+	public void setWriteOrder(int borrowedItemID, String borrowedItemName, double borrowedItemPrice, int borrowedQuantity, double borrowedOrderCost)
+	{
+		try
+		{
+			PrintWriter filePW = new PrintWriter(new FileWriter(masterFileName, true));
+			filePW.printf("%n%d\t%s\t%8.2f\t%d\t%8.2f%n", borrowedItemID, borrowedItemName, borrowedItemPrice,borrowedQuantity, borrowedOrderCost);
+			fileFoundFlag = FOUND;
+			recordCount++;
+			filePW.close();
+
+		}//end of try
+		catch (IOException ex)
+		{
+			fileFoundFlag = NOT_FOUND;
+		}//end of catch
+	}//end of setWriteOrder
+
+	public boolean getFileFoundFlag()
+	{
+		return fileFoundFlag;		
+
+	}//end of getFileFoundFlag
+
+	//get method
+	public String getFileName()
+	{
+		return masterFileName;
+
+	}//end of getFileName
+
+	public int getRecordCount()
+	{
+		return recordCount;
+	}//end of getRecordCount
+}//end of class
